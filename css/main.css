@@ -1,0 +1,46 @@
+.title {
+     margin: 0;
+     padding: 0 1em 1.25em 1.5em;
+     font-size: 10em;
+     font-family: Arcapulse;
+     background-image: url("../image/concept1.jpg");
+     color: white;
+      -webkit-text-stroke: 0.5px #0a3468;
+}
+
+.subtitle {
+     margin-top: -1.15em;
+     text-align: center;
+     font-family: MonkeySnake;
+     font-size: 6em;
+     color: white;
+}
+
+body {
+     margin: 0;
+     background-color: #082d66;
+}
+
+body p {
+     margin-top: 3em;
+     font-size: 3em;
+     letter-spacing: 0.15em;
+     color: white;
+     font-family: Railway;
+     font-weight: 100;
+}
+
+@font-face {
+    font-family: Arcapulse;
+    src: url(font/Arcapulse.otf);
+}
+
+@font-face {
+     font-family: MonkeySnake;
+     src: url(font/MonkeySnake.ttf);
+}
+
+@font-face {
+     font-family: Railway;
+     src: url(font/Railway.otf);
+}
