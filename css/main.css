@@ -1,6 +1,7 @@
 .title {
      margin: 0;
-     padding: 0 1em 1.25em 1.5em;
+     text-align: center;
+     padding: 0 0 1.5em 0;
      font-size: 10em;
      font-family: Arcapulse;
      background-image: url("../image/concept1.jpg");
@@ -9,16 +10,17 @@
 }
 
 .subtitle {
-     margin-top: -1.15em;
+     margin-top: -1.5em;
      text-align: center;
-     font-family: MonkeySnake;
-     font-size: 6em;
-     color: white;
+     font-family: Railway;
+     font-size: 3.75em;
+     color: #efd913;
+     
 }
 
 body {
      margin: 0;
-     background-color: #082d66;
+     background-color: #2A5462;
 }
 
 body p {
