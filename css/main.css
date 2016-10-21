@@ -1,9 +1,8 @@
 .title {
-     margin-top: -0.5em;
-     padding-top: 1em;
+     margin: 0;
      text-align: center;
-     height: 50%;
-     font-size: 15vw;
+     padding: 0 0 1.5em 0;
+     font-size: 10vw;
      font-family: Arcapulse;
      background-image: url("../image/concept1.jpg");
      background-repeat: no-repeat;
@@ -13,7 +12,7 @@
 }
 
 .subtitle {
-     margin-top: -6.5em;
+     margin-top: -1.5em;
      text-align: center;
      font-family: Railway;
      font-size: 3.5vw;
@@ -23,20 +22,18 @@
 
 #logo {
      position: absolute;
-     top: 2vh;
-     left: 2vw;
+     top: 25px;
+     left: -5px;
      width: 15vw;
 }
 
-html, body {
+body {
      margin: 0;
      background-color: #2A5462;
-     height: 100%;
-     width: 100%;
 }
 
 body p {
-     margin-top: 10vh;
+     margin-top: 2em;
      font-size: 3vw;
      letter-spacing: 0.15em;
      color: white;
@@ -46,7 +43,7 @@ body p {
 
 body img {
      margin: 0 1em 0em 1em;
-     width: 12.5%;
+     width: 10vw;
 }
 
 @font-face {
