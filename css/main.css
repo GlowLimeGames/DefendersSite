@@ -20,6 +20,44 @@
 
 }
 
+.navbar {
+     padding-top: 7.5vh;
+     font-family: Railway;
+     text-align: center;
+     width: 75vw;
+     margin: auto;
+     margin-bottom: 5em;
+}
+
+.navbar#home {
+     padding-top: 0;
+     margin-bottom: 0em;
+}
+
+.navbar#visualdev {
+     margin-bottom: 0em;
+}
+
+.navbar a {
+     background: #FDFF84;
+     margin: 1vw;
+     padding: 0.75vh 1vw;
+     font-size: 2vw;
+     text-decoration: none;
+     color: #10213D;
+     border-radius: 1em;
+     -webkit-transition: border-radius 1s, background 1s, color 1s;
+    transition: border-radius 1s, background 1s, color 1s;
+}
+
+.navbar a:hover {
+     background: #FDFF22;
+     color: #155F68;
+     border-radius: 0.5em;
+     -webkit-transition: border-radius 1s, background 1s, color 1s;
+    transition: border-radius 1s, background 1s, color 1s;
+}
+
 #logo {
      position: absolute;
      top: 25px;
@@ -32,18 +70,19 @@ body {
      background-color: #2A5462;
 }
 
-body p {
-     margin-top: 2em;
-     font-size: 3vw;
+body p#home {
+     text-align: left;
+     margin: 2em;
+     font-size: 2.75vh;
      letter-spacing: 0.15em;
      color: white;
      font-family: Railway;
      font-weight: 100;
 }
 
-body img {
+body img.social {
      margin: 0 1em 0em 1em;
-     width: 10vw;
+     width: 8vw;
 }
 
 @font-face {
