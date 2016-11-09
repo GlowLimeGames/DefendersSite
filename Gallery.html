@@ -3,6 +3,59 @@
 <head><title>Defender's Light</title>
     <link rel="stylesheet" type="text/css" href="css/main.css">
  <link rel="stylesheet" type="text/css" href="css/gallery.css">
+ <script src="https://code.jquery.com/jquery-1.6.2.min.js"></script>
+<script>
+jQuery(document).ready(function($) {
+	
+	$('.lightbox_trigger').click(function(e) {
+		
+		//prevent default action (hyperlink)
+		e.preventDefault();
+		
+		//Get clicked link href
+		var image_href = $(this).attr("href");
+		
+		/* 	
+		If the lightbox window HTML already exists in document, 
+		change the img src to to match the href of whatever link was clicked
+		
+		If the lightbox window HTML doesn't exists, create it and insert it.
+		(This will only happen the first time around)
+		*/
+		
+		if ($('#lightbox').length > 0) { // #lightbox exists
+			
+			//place href as img src value
+			$('#content').html('<img src="' + image_href + '" />');
+		   	
+			//show lightbox window - you could use .show('fast') for a transition
+			$('#lightbox').show();
+		}
+		
+		else { //#lightbox does not exist - create and insert (runs 1st time only)
+			
+			//create HTML markup for lightbox window
+			var lightbox = 
+			'<div id="lightbox">' +
+				'<p>Click to close</p>' +
+				'<div id="content">' + //insert clicked link's href into img src
+					'<img src="' + image_href +'" />' +
+				'</div>' +	
+			'</div>';
+				
+			//insert lightbox HTML into page
+			$('body').append(lightbox);
+		}
+		
+	});
+	
+	//Click anywhere on the page to get rid of lightbox window
+	$('#lightbox').live('click', function() { //must use live, as the lightbox element is inserted into the DOM
+		$('#lightbox').hide();
+	});
+
+});
+</script>
 </head>
 <body>
     <a href = "http://glowlime.com/"><img id = "logo" src = "image/glowlime.png"></a>
@@ -14,19 +67,27 @@
     </nav>
     <center>
         <div>
-            <a href = "image/concepts/autumn.png"><img src = "image/concepts/autumnsmall.png"></a>
-            <a href = "image/concepts/summer.png"><img src = "image/concepts/summersmall.png"></a>
-            <a href = "image/concepts/Brute.png"><img src = "image/concepts/Brutesmall.png"></a>
-            <a href = "image/concepts/Crawler.png"><img src = "image/concepts/Crawlersmall.png"></a>
-            <a href = "image/concepts/rider.png"><img src = "image/concepts/ridersmall.png"></a>
-            <a href = "image/concepts/shadow.png"><img src = "image/concepts/shadowsmall.png"></a>
-           
+            <a href = "image/concepts/autumn.png" class="lightbox_trigger"><img src = "image/concepts/autumnsmall.png"></a>
+            <a href = "image/concepts/summer.png" class="lightbox_trigger"><img src = "image/concepts/summersmall.png"></a>
+            <a href = "image/concepts/Brute.png" class="lightbox_trigger"><img src = "image/concepts/Brutesmall.png"></a>
+            <a href = "image/concepts/Crawler.png" class="lightbox_trigger"><img src = "image/concepts/Crawlersmall.png"></a>
+            <a href = "image/concepts/rider.png" class="lightbox_trigger"><img src = "image/concepts/ridersmall.png"></a>
+            <a href = "image/concepts/shadow.png" class="lightbox_trigger"><img src = "image/concepts/shadowsmall.png"></a>
+            
+        </div>
+        <div id="lightbox">
+            <p>Click to close</p>
+            <div id="content">
+                <img src="#"/>
+            </div>
         </div>
     </center>
     <center>
             <br>
              <a href = "https://www.facebook.com/DefendersLight"><img class = "social" src = "image/facebook.png"></a>
              <a href = "https://twitter.com/Defenders_Light"><img class = "social" src = "image/twitter.png"></a>
+             <br>
+             <a href = "youtube.com/channel/UCDg2ua2IJazqHjezVdQOi7A">Youtube</a>
          </center>
 </body>
 
