@@ -8,6 +8,9 @@
 //	by Lokesh Dhakar - http://huddletogether.com/projects/lightbox2/
 //	3/31/06
 //
+//   Site specific Revions by Isaiah Mann
+// 	11/12/16
+//
 //	Licensed under the Creative Commons Attribution 2.5 License - http://creativecommons.org/licenses/by/2.5/
 //
 //	The code inserts html at the bottom of the page that looks similar to this:
@@ -50,7 +53,7 @@
 //	Lightbox Object
 //
 
-var Lightbox = {	
+var Lightbox = {
 	activeImage : null,
 	badObjects : ['select','object','embed'],
 	container : null,
@@ -66,16 +69,16 @@ var Lightbox = {
 	resizeDuration : null,
 	slideShowTimer : null,
 	startImage : null,
-	
+
 	//
 	// initialize()
 	// Constructor sets class properties and configuration options and
-	// inserts html at the bottom of the page which is used to display the shadow 
+	// inserts html at the bottom of the page which is used to display the shadow
 	// overlay and the image container.
 	//
 	initialize: function(options) {
 		if (!document.getElementsByTagName){ return; }
-		
+
 		this.options = $H({
 			animate : false, // resizing animations
 			autoPlay : false, // should slideshow start automatically
@@ -104,7 +107,7 @@ var Lightbox = {
 				numDisplaySeparator : 'of'
 			}
         }).merge(options);
-		
+
 		if(this.options.animate){
 			this.overlayDuration = Math.max(this.options.overlayDuration,0);
 			this.options.resizeSpeed = Math.max(Math.min(this.options.resizeSpeed,10),1);
@@ -113,27 +116,27 @@ var Lightbox = {
 			this.overlayDuration = 0;
 			this.resizeDuration = 0;
 		}
-		
+
 		this.enableSlideshow = this.options.enableSlideshow;
 		this.overlayOpacity = Math.max(Math.min(this.options.overlayOpacity,1),0);
 		this.playSlides = this.options.autoPlay;
 		this.container = $(this.options.containerID);
 		this.relAttribute = this.options.relAttribute;
 		this.updateImageList();
-		
+
 		var objBody = this.container != document ? this.container : document.getElementsByTagName('body').item(0);
-		
+
 		var objOverlay = document.createElement('div');
 		objOverlay.setAttribute('id',this.getID('overlay'));
 		objOverlay.style.display = 'none';
 		objBody.appendChild(objOverlay);
 		Event.observe(objOverlay,'click',this.end.bindAsEventListener(this));
-		
+
 		var objLightbox = document.createElement('div');
 		objLightbox.setAttribute('id',this.getID('lightbox'));
 		objLightbox.style.display = 'none';
 		objBody.appendChild(objLightbox);
-		
+
 		var objImageDataContainer = document.createElement('div');
 		objImageDataContainer.setAttribute('id',this.getID('imageDataContainer'));
 		objImageDataContainer.className = this.getID('clearfix');
@@ -141,15 +144,15 @@ var Lightbox = {
 		var objImageData = document.createElement('div');
 		objImageData.setAttribute('id',this.getID('imageData'));
 		objImageDataContainer.appendChild(objImageData);
-	
+
 		var objImageDetails = document.createElement('div');
 		objImageDetails.setAttribute('id',this.getID('imageDetails'));
 		objImageData.appendChild(objImageDetails);
-	
+
 		var objCaption = document.createElement('span');
 		objCaption.setAttribute('id',this.getID('caption'));
 		objImageDetails.appendChild(objCaption);
-	
+
 		var objNumberDisplay = document.createElement('span');
 		objNumberDisplay.setAttribute('id',this.getID('numberDisplay'));
 		objImageDetails.appendChild(objNumberDisplay);
@@ -158,41 +161,21 @@ var Lightbox = {
 		objDetailsNav.setAttribute('id',this.getID('detailsNav'));
 		objImageDetails.appendChild(objDetailsNav);
 
-		var objPrevLink = document.createElement('a');
-		objPrevLink.setAttribute('id',this.getID('prevLinkDetails'));
-		objPrevLink.setAttribute('href','javascript:void(0);');
-		objPrevLink.innerHTML = this.options.strings.prevLink;
-		objDetailsNav.appendChild(objPrevLink);
-		Event.observe(objPrevLink,'click',this.showPrev.bindAsEventListener(this));
-		
-		var objNextLink = document.createElement('a');
-		objNextLink.setAttribute('id',this.getID('nextLinkDetails'));
-		objNextLink.setAttribute('href','javascript:void(0);');
-		objNextLink.innerHTML = this.options.strings.nextLink;
-		objDetailsNav.appendChild(objNextLink);
-		Event.observe(objNextLink,'click',this.showNext.bindAsEventListener(this));
-
-		var objSlideShowControl = document.createElement('a');
-		objSlideShowControl.setAttribute('id',this.getID('slideShowControl'));
-		objSlideShowControl.setAttribute('href','javascript:void(0);');
-		objDetailsNav.appendChild(objSlideShowControl);
-		Event.observe(objSlideShowControl,'click',this.toggleSlideShow.bindAsEventListener(this));
-
 		var objClose = document.createElement('div');
 		objClose.setAttribute('id',this.getID('close'));
 		objImageData.appendChild(objClose);
-	
+
 		var objCloseLink = document.createElement('a');
 		objCloseLink.setAttribute('id',this.getID('closeLink'));
 		objCloseLink.setAttribute('href','javascript:void(0);');
 		objCloseLink.innerHTML = this.options.strings.closeLink;
-		objClose.appendChild(objCloseLink);	
+		objClose.appendChild(objCloseLink);
 		Event.observe(objCloseLink,'click',this.end.bindAsEventListener(this));
 
 		if(this.options.imageDataLocation == 'north'){
 			objLightbox.appendChild(objImageDataContainer);
 		}
-	
+
 		var objOuterImageContainer = document.createElement('div');
 		objOuterImageContainer.setAttribute('id',this.getID('outerImageContainer'));
 		objLightbox.appendChild(objOuterImageContainer);
@@ -200,50 +183,65 @@ var Lightbox = {
 		var objImageContainer = document.createElement('div');
 		objImageContainer.setAttribute('id',this.getID('imageContainer'));
 		objOuterImageContainer.appendChild(objImageContainer);
-	
+
 		var objLightboxImage = document.createElement('img');
 		objLightboxImage.setAttribute('id',this.getID('lightboxImage'));
 		objImageContainer.appendChild(objLightboxImage);
-	
+
+		var leftArrowImg = document.createElement('img');
+		var rightArrowImg = document.createElement('img');
+		rightArrowImg.setAttribute('class', 'nav-arrow');
+		rightArrowImg.setAttribute('id', 'right-nav');
+		leftArrowImg.setAttribute('class', 'nav-arrow');
+		leftArrowImg.setAttribute('id', 'left-nav');
+		leftArrowImg.src = 'image/arrow-button.png';
+		rightArrowImg.src = 'image/arrow-button.png';
+		leftArrowImg.setAttribute('href','javascript:void(0);');
+		rightArrowImg.setAttribute('href','javascript:void(0);');
+		Event.observe(leftArrowImg,'click',this.showPrev.bindAsEventListener(this));
+		Event.observe(rightArrowImg,'click',this.showNext.bindAsEventListener(this));
+		objOverlay.appendChild(rightArrowImg);
+		objOverlay.appendChild(leftArrowImg);
+
 		var objHoverNav = document.createElement('div');
 		objHoverNav.setAttribute('id',this.getID('hoverNav'));
 		objImageContainer.appendChild(objHoverNav);
-	
+
 		var objPrevLinkImg = document.createElement('a');
 		objPrevLinkImg.setAttribute('id',this.getID('prevLinkImg'));
 		objPrevLinkImg.setAttribute('href','javascript:void(0);');
 		objHoverNav.appendChild(objPrevLinkImg);
 		Event.observe(objPrevLinkImg,'click',this.showPrev.bindAsEventListener(this));
-		
+
 		var objNextLinkImg = document.createElement('a');
 		objNextLinkImg.setAttribute('id',this.getID('nextLinkImg'));
 		objNextLinkImg.setAttribute('href','javascript:void(0);');
 		objHoverNav.appendChild(objNextLinkImg);
 		Event.observe(objNextLinkImg,'click',this.showNext.bindAsEventListener(this));
-	
+
 		var objLoading = document.createElement('div');
 		objLoading.setAttribute('id',this.getID('loading'));
 		objImageContainer.appendChild(objLoading);
-	
+
 		var objLoadingLink = document.createElement('a');
 		objLoadingLink.setAttribute('id',this.getID('loadingLink'));
 		objLoadingLink.setAttribute('href','javascript:void(0);');
 		objLoadingLink.innerHTML = this.options.strings.loadingMsg;
 		objLoading.appendChild(objLoadingLink);
 		Event.observe(objLoadingLink,'click',this.end.bindAsEventListener(this));
-		
+
 		if(this.options.imageDataLocation != 'north'){
 			objLightbox.appendChild(objImageDataContainer);
 		}
-		
+
 		if(this.options.initImage != ''){
 			this.start($(this.options.initImage));
 		}
 	},
-	
+
 	//
 	//	updateImageList()
-	//	Loops through specific tags within 'container' looking for 
+	//	Loops through specific tags within 'container' looking for
 	// 'lightbox' references and applies onclick events to them.
 	//
 	updateImageList: function(){
@@ -259,12 +257,12 @@ var Lightbox = {
 			}
 		}
 	},
-		
+
 	//
 	//	start()
 	//	Display overlay and lightbox. If image is part of a set, add siblings to imageArray.
 	//
-	start: function(imageLink) {	
+	start: function(imageLink) {
 
 		this.hideBadObjects();
 
@@ -275,15 +273,15 @@ var Lightbox = {
 
 		this.imageArray = [];
 		this.groupName = null;
-		
+
 		var rel = imageLink.getAttribute('rel');
 		var imageTitle = '';
-		
+
 		// if image is NOT part of a group..
 		if(rel == this.relAttribute){
 			// add single image to imageArray
 			imageTitle = imageLink.getAttribute('title') ? imageLink.getAttribute('title') : '';
-			this.imageArray.push({'link':imageLink.getAttribute('href'), 'title':imageTitle});			
+			this.imageArray.push({'link':imageLink.getAttribute('href'), 'title':imageTitle});
 			this.startImage = 0;
 		} else {
 			// if image is part of a group..
@@ -303,7 +301,7 @@ var Lightbox = {
 			this.groupName = rel.substring(this.relAttribute.length+1,rel.length-1);
 		}
 
-		// calculate top offset for the lightbox and display 
+		// calculate top offset for the lightbox and display
 		var pageScroll = this.getPageScroll();
 		var lightboxTop = pageScroll.y + (pageSize.winHeight / 15);
 
@@ -315,7 +313,7 @@ var Lightbox = {
 	//	changeImage()
 	//	Hide most elements and preload image in preparation for resizing image container.
 	//
-	changeImage: function(imageNum){	
+	changeImage: function(imageNum){
 		this.activeImage = imageNum;
 
 		this.disableKeyboardNav();
@@ -328,16 +326,16 @@ var Lightbox = {
 		$(this.getID('imageDataContainer')).hide();
 		$(this.getID('numberDisplay')).hide();
 		$(this.getID('detailsNav')).hide();
-		
+
 		var imgPreloader = new Image();
-		
+
 		// once image is preloaded, resize image container
 		imgPreloader.onload=function(){
 			$(Lightbox.getID('lightboxImage')).src = imgPreloader.src;
 			Lightbox.resizeImageContainer(imgPreloader.width,imgPreloader.height);
 		}
 		imgPreloader.src = this.imageArray[this.activeImage].link;
-		
+
 		if(this.options.googleAnalytics){
 			urchinTracker(this.imageArray[this.activeImage].link);
 		}
@@ -361,10 +359,10 @@ var Lightbox = {
 		if(!( hDiff == 0)){ new Effect.Scale(this.getID('outerImageContainer'), yScale, {scaleX: false, duration: this.resizeDuration, queue: 'front'}); }
 		if(!( wDiff == 0)){ new Effect.Scale(this.getID('outerImageContainer'), xScale, {scaleY: false, delay: this.resizeDuration, duration: this.resizeDuration}); }
 
-		// if new and old image are same size and no scaling transition is necessary, 
+		// if new and old image are same size and no scaling transition is necessary,
 		// do a quick pause to prevent image flicker.
 		if((hDiff == 0) && (wDiff == 0)){
-			if(navigator.appVersion.indexOf('MSIE')!=-1){ this.pause(250); } else { this.pause(100);} 
+			if(navigator.appVersion.indexOf('MSIE')!=-1){ this.pause(250); } else { this.pause(100);}
 		}
 
 		$(this.getID('prevLinkImg')).setStyle({height:imgHeight+'px'});
@@ -373,7 +371,7 @@ var Lightbox = {
 
 		this.showImage();
 	},
-	
+
 	//
 	//	showImage()
 	//	Display image and begin preloading neighbors.
@@ -391,8 +389,8 @@ var Lightbox = {
 	updateDetails: function() {
 		$(this.getID('caption')).show();
 		$(this.getID('caption')).update(this.imageArray[this.activeImage].title);
-		
-		// if image is part of set display 'Image x of y' 
+
+		// if image is part of set display 'Image x of y'
 		if(this.imageArray.length > 1){
 			var num_display = this.options.strings.numDisplayPrefix + ' ' + eval(this.activeImage + 1) + ' ' + this.options.strings.numDisplaySeparator + ' ' + this.imageArray.length;
 			if(this.options.showGroupName && this.groupName != ''){
@@ -404,14 +402,14 @@ var Lightbox = {
 			}
 			$(this.getID('detailsNav')).show();
 		}
-		
+
 		new Effect.Parallel(
-			[ new Effect.SlideDown( this.getID('imageDataContainer'), { sync: true }), 
-			  new Effect.Appear(this.getID('imageDataContainer'), { sync: true }) ], 
-			{ duration:.65, afterFinish: function() { Lightbox.updateNav();} } 
+			[ new Effect.SlideDown( this.getID('imageDataContainer'), { sync: true }),
+			  new Effect.Appear(this.getID('imageDataContainer'), { sync: true }) ],
+			{ duration:.65, afterFinish: function() { Lightbox.updateNav();} }
 		);
 	},
-	
+
 	//
 	//	updateNav()
 	//	Display appropriate previous and next hover navigation.
@@ -438,7 +436,7 @@ var Lightbox = {
 		this.slideShowTimer = new PeriodicalExecuter(function(pe){ Lightbox.showNext(); pe.stop(); },this.options.slideTime);
 		$(this.getID('slideShowControl')).update(this.options.strings.stopSlideshow);
 	},
-	
+
 	//
 	//	stopSlideShow()
 	//	Stops the slide show
@@ -472,12 +470,13 @@ var Lightbox = {
 			this.slideShowTimer.stop();
 		}
 	},
-	
+
 	//
 	//	showNext()
 	//	Display the next image in a group
 	//
 	showNext : function(){
+		event.stopImmediatePropagation()
 		if(this.imageArray.length > 1){
 			if(!this.options.loop && ((this.activeImage == this.imageArray.length - 1 && this.startImage == 0) || (this.activeImage+1 == this.startImage))){
 				return this.end();
@@ -495,6 +494,7 @@ var Lightbox = {
 	//	Display the next image in a group
 	//
 	showPrev : function(){
+		event.stopImmediatePropagation()
 		if(this.imageArray.length > 1){
 			if(this.activeImage == 0){
 				this.changeImage(this.imageArray.length - 1);
@@ -503,7 +503,7 @@ var Lightbox = {
 			}
 		}
 	},
-	
+
 	//
 	//	showFirst()
 	//	Display the first image in a group
@@ -528,7 +528,7 @@ var Lightbox = {
 	//	enableKeyboardNav()
 	//
 	enableKeyboardNav: function() {
-		document.onkeydown = this.keyboardAction; 
+		document.onkeydown = this.keyboardAction;
 	},
 
 	//
@@ -549,7 +549,7 @@ var Lightbox = {
 		}
 
 		key = String.fromCharCode(keycode).toLowerCase();
-		
+
 		if(key == 'x' || key == 'o' || key == 'c'){ // close lightbox
 			Lightbox.end();
 		} else if(key == 'p' || key == '%'){ // display previous image
@@ -591,7 +591,7 @@ var Lightbox = {
 		new Effect.Fade(this.getID('overlay'), { duration:this.overlayDuration });
 		this.showBadObjects();
 	},
-	
+
 	//
 	//	showBadObjects()
 	//
@@ -605,7 +605,7 @@ var Lightbox = {
 			}
 		}
 	},
-	
+
 	//
 	//	hideBadObjects()
 	//
@@ -619,7 +619,7 @@ var Lightbox = {
 			}
 		}
 	},
-		
+
 	//
 	// pause(numberMillis)
 	// Pauses code execution for specified time. Uses busy code, not good.
@@ -663,7 +663,7 @@ var Lightbox = {
 	//
 	getPageSize: function(){
 		var scrollX,scrollY,windowX,windowY,pageX,pageY;
-		if (window.innerHeight && window.scrollMaxY) {	
+		if (window.innerHeight && window.scrollMaxY) {
 			scrollX = document.body.scrollWidth;
 			scrollY = window.innerHeight + window.scrollMaxY;
 		} else if (document.body.scrollHeight > document.body.offsetHeight){ // all but Explorer Mac
@@ -673,7 +673,7 @@ var Lightbox = {
 			scrollX = document.body.offsetWidth;
 			scrollY = document.body.offsetHeight;
 		}
-		
+
 		if (self.innerHeight) {	// all except Explorer
 			windowX = self.innerWidth;
 			windowY = self.innerHeight;
@@ -683,11 +683,11 @@ var Lightbox = {
 		} else if (document.body) { // other Explorers
 			windowX = document.body.clientWidth;
 			windowY = document.body.clientHeight;
-		}	
-		
+		}
+
 		pageY = (scrollY < windowY) ? windowY : scrollY; // for small pages with total height less then height of the viewport
 		pageX = (scrollX < windowX) ? windowX : scrollX; // for small pages with total width less then width of the viewport
-	
+
 		return {pageWidth:pageX,pageHeight:pageY,winWidth:windowX,winHeight:windowY};
 	},
 

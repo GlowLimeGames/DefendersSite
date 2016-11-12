@@ -7,7 +7,8 @@
 	text-align: center;
 	line-height: 0;
 	color:#151410;
-	}
+	pointer-events : none;
+}
 
 #lightbox a, #lightbox a:hover {
 	border-bottom:none;
@@ -77,17 +78,25 @@
 	background-color: #2A5462;
 	margin: 0 auto;
 	line-height: 1.4em;
-	}
+	z-index: 110;
+	pointer-events: all;
+}
 
 #imageData{
 	padding:0 10px;
-	}
-#imageDetails{ width: 70%; float: left; text-align: left; }	
+}
+
+#imageDetails{
+	width: 70%;
+	float: left;
+	text-align: left;
+}
+
 #caption{ font-weight: bold;	}
-#numberDisplay{ display: block; clear: left; }			
-#detailsNav{ display: block; clear: left; padding:0 0 10px 0;	}	
-#prevLinkDetails { margin:0 8px 0 0; }		
-#nextLinkDetails { margin:0 8px 0 0; }		
+#numberDisplay{ display: block; clear: left; }
+#detailsNav{ display: block; clear: left; padding:0 0 10px 0;	}
+#prevLinkDetails { margin:0 8px 0 0; }
+#nextLinkDetails { margin:0 8px 0 0; }
 #closeLink {
 	display:block;
 	margin:0;
@@ -99,8 +108,8 @@
 	background-image: url("image/closeicon.png") no-repeat;
 	text-indent:-9999px;
 	overflow:hidden;
-}	
-		
+}
+
 #overlay{
 	position: absolute;
 	top: 0;
@@ -113,18 +122,18 @@
 	-moz-opacity: 0.6;
 	opacity: 0.6;
 	}
-	
+
 
 .clearfix:after {
-	content: "."; 
-	display: block; 
-	height: 0; 
-	clear: both; 
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
 	visibility: hidden;
 	}
 
 * html>body .clearfix {
-	display: inline-block; 
+	display: inline-block;
 	width: 100%;
 	}
 
@@ -132,5 +141,28 @@
 	/* Hides from IE-mac \*/
 	height: 1%;
 	/* End hide from IE-mac */
-	}	
-	
+	}
+
+/* Site specific modifications by Isaiah Mann: */
+.nav-arrow {
+	filter:alpha(opacity=100);
+	width: 7.5em;
+	padding: 1em;
+	margin: 12.5em 5em;
+	z-index: 200;
+}
+.nav-arrow:hover {
+	background: #FDFF84;
+	border-radius: 50em;
+}
+
+#right-nav {
+	float: right;
+}
+
+#left-nav {
+	-ms-transform: rotate(180deg); /* IE 9 */
+  	-webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+  	transform: rotate(180deg);
+	float: left
+}
