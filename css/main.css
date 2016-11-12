@@ -83,6 +83,22 @@ body p#home {
 body img.social {
      margin: 0 1em 0em 1em;
      width: 8vw;
+     margin: 1em;
+     padding: 0;
+     background: transparent;
+     border-radius: 50em;
+     -webkit-transition: padding 1s, margin 1s, background 1s;
+	transition: padding 1s, margin 1s, background 1s;
+}
+
+body img.social:hover {
+     margin: 0 1em 0em 1em;
+     width: 8vw;
+     background: #FDFF84;
+	padding: 1em;
+     margin: 0;
+     -webkit-transition: padding 1s, margin 1s, background 1s;
+	transition: padding 1s, margin 1s, background 1s;
 }
 
 @font-face {

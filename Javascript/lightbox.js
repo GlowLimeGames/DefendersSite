@@ -194,8 +194,8 @@ var Lightbox = {
 		rightArrowImg.setAttribute('id', 'right-nav');
 		leftArrowImg.setAttribute('class', 'nav-arrow');
 		leftArrowImg.setAttribute('id', 'left-nav');
-		leftArrowImg.src = 'image/arrow-button.png';
-		rightArrowImg.src = 'image/arrow-button.png';
+		leftArrowImg.src = 'image/left-arrow-button.png';
+		rightArrowImg.src = 'image/right-arrow-button.png';
 		leftArrowImg.setAttribute('href','javascript:void(0);');
 		rightArrowImg.setAttribute('href','javascript:void(0);');
 		Event.observe(leftArrowImg,'click',this.showPrev.bindAsEventListener(this));
@@ -446,7 +446,6 @@ var Lightbox = {
 		if(this.slideShowTimer){
 			this.slideShowTimer.stop();
 		}
-		$(this.getID('slideShowControl')).update(this.options.strings.startSlideshow);
 	},
 
 	//

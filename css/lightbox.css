@@ -147,13 +147,20 @@
 .nav-arrow {
 	filter:alpha(opacity=100);
 	width: 7.5em;
-	padding: 1em;
-	margin: 12.5em 5em;
+	margin: 13.5em 6em;
 	z-index: 200;
+	-webkit-transition: padding 1s, margin 1s, background, 1s;
+	transition: padding 1s, margin 1s, background 1s;
+	border-radius: 50em;
+	background: transparent;
+	padding: 0em;
 }
 .nav-arrow:hover {
 	background: #FDFF84;
-	border-radius: 50em;
+	padding: 1em;
+	margin: 12.5em 5em;
+	-webkit-transition: padding 1s, margin 1s, background 1s;
+	transition: padding 1s, margin 1s, background 1s;
 }
 
 #right-nav {
@@ -161,8 +168,5 @@
 }
 
 #left-nav {
-	-ms-transform: rotate(180deg); /* IE 9 */
-  	-webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
-  	transform: rotate(180deg);
 	float: left
 }
