@@ -23,6 +23,17 @@ th {
      border: 1px solid white;
 }
 
+body{
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin:0px;
+    height: 100%;
+    width:100%;
+    padding:0;
+    color: white;
+    font-family: Railway;
+}
+
 a.version {
           background: #FDFF84;
           margin: 1vw;
@@ -41,17 +52,6 @@ a.version:hover {
      border-radius: 0.5em;
      -webkit-transition: border-radius 1s, background 1s, color 1s;
     transition: border-radius 1s, background 1s, color 1s;
-}
-
-body{
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    margin:0px;
-    height: 100%;
-    width:100%;
-    padding:0;
-    color: white;
-    font-family: Railway;
 }
 
 @font-face {
