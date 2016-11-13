@@ -7,26 +7,59 @@
 }
 #Defenders h1{
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arcapulse;
     font-weight: normal;
-    font-size: 2.5em;
+    font-size: 3.5em;
 
 }
 
 #Defenders p{
     text-align: center;
-    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.25em;
+}
 
+th {
+     font-size: 1.5em;
+     border: 1px solid white;
 }
 
 body{
-    background: darkblue;
-    background: linear-gradient(lightblue,aqua);
     background-repeat: no-repeat;
     background-attachment: fixed;
     margin:0px;
     height: 100%;
     width:100%;
     padding:0;
+    color: white;
+    font-family: Railway;
+}
 
+a.version {
+          background: #FDFF84;
+          margin: 1vw;
+          padding: 0.5vh 0.5vw;
+          font-size: 2vw;
+          text-decoration: none;
+          color: #10213D;
+          border-radius: 1em;
+          -webkit-transition: border-radius 1s, background 1s, color 1s;
+         transition: border-radius 1s, background 1s, color 1s;
+}
+
+a.version:hover {
+     background: #FDFF22;
+     color: #155F68;
+     border-radius: 0.5em;
+     -webkit-transition: border-radius 1s, background 1s, color 1s;
+    transition: border-radius 1s, background 1s, color 1s;
+}
+
+@font-face {
+     font-family: Railway;
+     src: url(font/Railway.otf);
+}
+
+@font-face {
+    font-family: Arcapulse;
+    src: url(font/Arcapulse.otf);
 }
