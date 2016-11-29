@@ -9,6 +9,10 @@
      background-position: center;
      color: white;
       -webkit-text-stroke: 0.5px #0a3468;
+     -webkit-background-size: cover;
+     -moz-background-size: cover;
+     -o-background-size: cover;
+     background-size: cover;
 }
 
 .subtitle {
