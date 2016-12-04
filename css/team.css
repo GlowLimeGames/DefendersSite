@@ -2,3 +2,51 @@ body {
      margin: 0;
      background-color: #2A5462;
 }
+
+img.social#team {
+     width: 2em;
+     height: 2em;
+}
+
+#team {
+     width: 1300px;
+     margin: auto;
+     margin-bottom: 20em;
+     z-index: 100;
+}
+
+#top {
+     margin-top: 0;
+}
+
+.developer {
+     float: left;
+     width: 175px;
+     height: 175px;
+     text-align: center;
+     color: white;
+     margin: 10em 7.5em;
+}
+
+.developer h3 {
+     font-family: MonkeySnake;
+     font-size: 2.5em;
+     margin: 0;
+     margin-top: 1em;
+}
+
+.developer h4 {
+     font-family: Raleway;
+     margin: 1em 0;
+}
+
+.developer img {
+     margin: 0;
+     border-radius: 50%;
+}
+
+.footer {
+     margin-top: 5em;
+     width: 100%;
+     display: inline-block;
+}
