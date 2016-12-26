@@ -63,7 +63,7 @@
 }
 
 a#play {
-     font-size: 7.5em;
+     font-size: 5em;
      padding: 0 1em;
 }
 
@@ -80,7 +80,7 @@ body {
 }
 
 body p#home {
-     text-align: left;
+     text-align: center;
      margin: 2em;
      font-size: 2.75vh;
      letter-spacing: 0.15em;
